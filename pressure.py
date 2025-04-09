@@ -23,7 +23,7 @@ def getPressure():
     return pressure
     
 
-hx = HX711(5, 6)
+hx = HX711(5, 6, gain=32)
 hx.setReadingFormat("MSB", "MSB")
 hx.autosetOffset()
 referenceUnit = 9000
