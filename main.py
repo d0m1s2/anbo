@@ -3,6 +3,11 @@ import RPi.GPIO as GPIO
 import sys
 import time
 
+# gpio pinouts:
+# 22 - mag
+# 25 - starter
+# 27 - valve 
+
 while True:
     try:
         print(pressure.getPressure())

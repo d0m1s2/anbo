@@ -1,10 +1,8 @@
 from enum import Enum, auto
 
 class gameStates(Enum):
-    START = auto()
-    TURN_MAGNETO_ON = auto()
-    TURN_VALVE_ON = auto()
-    PUMP_OIL = auto()
+    WAIT_FOR_MAGNETO = auto()
+    WAIT_FOR_VALVE = auto()
+    WAIT_FOR_OIL_PUMP = auto()
+    WAIT_FOR_ = auto()
     END = auto()
-
-    
