@@ -49,14 +49,15 @@ def crank_engine():
         if stop_cranking.is_set():
             crank_sound.stop()
             print("Starter released early: cranking aborted.")
-            crank_completed.set()  # Signal that cranking is done
-            return
+            return  # Don't set crank_completed in case of early release
+
         time.sleep(0.1)
 
     crank_sound.stop()
     print("Starter held long enough: engine running!")
     running_sound.play()
 
+    # Only set crank_completed if cranking was successful
     crank_completed.set()  # Signal that cranking finished successfully
 
 print("Starting game. Press buttons in correct order.")
