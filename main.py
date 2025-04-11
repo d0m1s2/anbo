@@ -33,8 +33,10 @@ def print_state():
 
 
 def crank_engine():
-    global stop_cranking
+    global stop_cranking, crank_completed
     stop_cranking.clear()
+    crank_completed.clear()  # Reset event before starting
+
     print("Starter held: playing cranking sound...")
     
     crank_sound.play(-1)  # Loop indefinitely
@@ -44,12 +46,15 @@ def crank_engine():
         if stop_cranking.is_set():
             crank_sound.stop()
             print("Starter released early: cranking aborted.")
+            crank_completed.set()  # Signal that cranking is done
             return
         time.sleep(0.1)
 
     crank_sound.stop()
     print("Starter held long enough: engine running!")
     running_sound.play()
+
+    crank_completed.set()  # Signal that cranking finished successfully
 
 print("Starting game. Press buttons in correct order.")
 print_state()
