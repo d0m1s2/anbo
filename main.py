@@ -39,7 +39,7 @@ try:
     print("Starting game. Press buttons in correct order.")
     print_state()
 
-    while current_state != gameStates.END:
+    while True:
         # MAGNETO
         if current_state == gameStates.WAIT_FOR_MAGNETO:
             if GPIO.input(Inputs.MAG.value) == GPIO.LOW:
