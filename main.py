@@ -64,7 +64,7 @@ print("Starting game. Press buttons in correct order.")
 print_state()
 
 try:
-    while current_state != gameStates.END:
+    while True:
         # MAGNETO
         if current_state == gameStates.WAIT_FOR_MAGNETO:
             if GPIO.input(Inputs.MAG.value) == GPIO.LOW:
@@ -90,7 +90,8 @@ try:
             if crank_completed.is_set():
                 current_state = gameStates.END
                 print_state()
-
+        elif current_state == gameStates.END:
+            time.sleep(10)
 except KeyboardInterrupt:
     print("\nExiting...")
 
