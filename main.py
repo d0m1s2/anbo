@@ -4,34 +4,93 @@ import sys
 import time
 import pygame
 import threading
-from stateMachine import gameStates
+from stateMachhine import gameStates
+from enum import Enum
 
-# gpio pinouts:
-# 22 - mag
-# 25 - starter
-# 27 - valve 
 
-INPUTS = [
-    (27, "valve_pot"),
-    (22, "mag"),
-    (25, "starter")
-]
+class Inputs(Enum):
+    VALVE_POT = 27
+    MAG = 22
+    STARTER = 25
 
 GPIO.setmode(GPIO.BCM)
-for pin, _ in INPUTS:
-    GPIO.setup(pin, GPIO.IN, pull_up_down=GPIO.PUD_UP)
-input_states = {pin: GPIO.input(pin) for pin, _ in INPUTS}
-current_state_index = 0
+for pin in Inputs:
+    GPIO.setup(pin.value, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+input_states = {pin: GPIO.input(pin.value) for pin in Inputs}
+current_state = gameStates.WAIT_FOR_MAGNETO
 
 pygame.mixer.init()
-CRANK_SOUND = "/home/anbo/anbo_main/engine_crank.mp3"
-START_SOUND = "/home/anbo/anbo_main/engine_start.mp3"
+CRANK_SOUND = "/home/pi/sounds/engine_crank.mp3"
+START_SOUND = "/home/pi/sounds/engine_start.mp3"
 crank_sound = pygame.mixer.Sound(CRANK_SOUND)
 running_sound = pygame.mixer.Sound(START_SOUND)
 
 crank_thread = None
 stop_cranking = threading.Event()
 
+def print_state():
+    print(f"Current State: {current_state.name}")
+
+
+def crank_engine():
+    global stop_cranking
+    stop_cranking.clear()
+    print("Starter held: playing cranking sound...")
+    
+    crank_sound.play(-1)  # Loop indefinitely
+
+    start_time = time.time()
+    while time.time() - start_time < 5:
+        if stop_cranking.is_set():
+            crank_sound.stop()
+            print("Starter released early: cranking aborted.")
+            return
+        time.sleep(0.1)
+
+    crank_sound.stop()
+    print("Starter held long enough: engine running!")
+    running_sound.play()
+
+print("Starting game. Press buttons in correct order.")
+print_state()
+    
+try:
+    while current_state != gameStates.END:
+        # MAGNETO
+        if current_state == gameStates.WAIT_FOR_MAGNETO:
+            if GPIO.input(Inputs.MAG.value) == GPIO.LOW:
+                current_state = gameStates.WAIT_FOR_VALVE
+                print_state()
+        # VALVE
+        elif current_state == gameStates.WAIT_FOR_VALVE:
+            if GPIO.input(Inputs.VALVE_POT.value) == GPIO.LOW:
+                current_state = gameStates.WAIT_FOR_STARTER
+                print_state()
+        # STARTER
+        elif current_state == gameStates.WAIT_FOR_STARTER:
+            starter_input = GPIO.input(Inputs.STARTER.value)
+            if starter_input == GPIO.LOW:
+                if crank_thread is None or not crank_thread.is_alive():
+                    crank_thread = threading.Thread(target=crank_engine)
+                    crank_thread.start()
+            else:
+                # Starter button released
+                stop_cranking.set()
+
+            # Check if crank finished successfully
+            if crank_completed.is_set():
+                current_state = gameStates.END
+                print_state()
+
+
+except KeyboardInterrupt:
+    print("\nExiting...")
+
+finally:
+    GPIO.cleanup()
+    pygame.mixer.quit()
+
+'''
 while True:
     try:
         print(pressure.getPressure())
@@ -40,3 +99,4 @@ while True:
         GPIO.cleanup()
         print("[INFO] Exiting...")
         sys.exit()
+'''
