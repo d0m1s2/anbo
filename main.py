@@ -13,9 +13,14 @@ class Inputs(Enum):
     MAG = 22
     STARTER = 25
 
+# Define events globally
+stop_cranking = threading.Event()
+crank_completed = threading.Event()  # Make sure this is defined globally
+
 GPIO.setmode(GPIO.BCM)
 for pin in Inputs:
     GPIO.setup(pin.value, GPIO.IN, pull_up_down=GPIO.PUD_UP)
+
 input_states = {pin: GPIO.input(pin.value) for pin in Inputs}
 current_state = gameStates.WAIT_FOR_MAGNETO
 
@@ -26,11 +31,9 @@ crank_sound = pygame.mixer.Sound(CRANK_SOUND)
 running_sound = pygame.mixer.Sound(START_SOUND)
 
 crank_thread = None
-stop_cranking = threading.Event()
 
 def print_state():
     print(f"Current State: {current_state.name}")
-
 
 def crank_engine():
     global stop_cranking, crank_completed
@@ -58,7 +61,7 @@ def crank_engine():
 
 print("Starting game. Press buttons in correct order.")
 print_state()
-    
+
 try:
     while current_state != gameStates.END:
         # MAGNETO
@@ -87,21 +90,9 @@ try:
                 current_state = gameStates.END
                 print_state()
 
-
 except KeyboardInterrupt:
     print("\nExiting...")
 
 finally:
     GPIO.cleanup()
     pygame.mixer.quit()
-
-'''
-while True:
-    try:
-        print(pressure.getPressure())
-        time.sleep(0.3)
-    except (KeyboardInterrupt, SystemExit):
-        GPIO.cleanup()
-        print("[INFO] Exiting...")
-        sys.exit()
-'''
