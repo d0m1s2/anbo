@@ -85,7 +85,7 @@ try:
                 # Starter button released
                 stop_cranking.set()
 
-            # Check if crank finished successfully
+            # Only transition to END if cranking was successful (completed after 5 seconds)
             if crank_completed.is_set():
                 current_state = gameStates.END
                 print_state()
