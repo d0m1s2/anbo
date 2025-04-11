@@ -97,3 +97,15 @@ except KeyboardInterrupt:
 finally:
     GPIO.cleanup()
     pygame.mixer.quit()
+
+
+'''
+while True:
+    try:
+        print(pressure.getPressure())
+        time.sleep(0.3)
+    except (KeyboardInterrupt, SystemExit):
+        GPIO.cleanup()
+        print("[INFO] Exiting...")
+        sys.exit()
+'''
