@@ -22,7 +22,7 @@ try:
             level = "LOW" if state == GPIO.LOW else "HIGH"
             print(f"{pin.name}: {level}")
         print("-" * 30)
-        time.sleep(0.2)
+        time.sleep(10)
 
 except KeyboardInterrupt:
     print("\nExiting...")
