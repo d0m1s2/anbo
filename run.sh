@@ -1,3 +1,3 @@
 sudo pigpiod
-source ~/env/bin/activate
-sudo python3 main.py
+source /home/anbo/env/bin/activate
+sudo /home/anbo/env/bin/python main.py

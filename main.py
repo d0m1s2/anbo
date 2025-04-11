@@ -4,7 +4,7 @@ import sys
 import time
 import pygame
 import threading
-import gameStates
+from stateMachine import gameStates
 
 # gpio pinouts:
 # 22 - mag
@@ -24,8 +24,8 @@ input_states = {pin: GPIO.input(pin) for pin, _ in INPUTS}
 current_state_index = 0
 
 pygame.mixer.init()
-CRANK_SOUND = "/home/pi/sounds/engine_crank.mp3"
-START_SOUND = "/home/pi/sounds/engine_start.mp3"
+CRANK_SOUND = "/home/anbo/anbo_main/engine_crank.mp3"
+START_SOUND = "/home/anbo/anbo_main/engine_start.mp3"
 crank_sound = pygame.mixer.Sound(CRANK_SOUND)
 running_sound = pygame.mixer.Sound(START_SOUND)
 
