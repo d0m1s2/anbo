@@ -46,25 +46,27 @@ def crank_engine():
 
     start_time = time.time()
     while time.time() - start_time < 5:
+        # Check if the starter button is released early
         if stop_cranking.is_set():
             crank_sound.stop()
             print("Starter released early: cranking aborted.")
-            return  # Don't set crank_completed in case of early release
+            crank_completed.set()  # Signal cranking as completed (even if aborted early)
+            return  # Stop cranking
 
         time.sleep(0.1)
 
+    # If we reach this point, cranking was successful (button held for 5 seconds)
     crank_sound.stop()
     print("Starter held long enough: engine running!")
     running_sound.play()
 
-    # Only set crank_completed if cranking was successful
     crank_completed.set()  # Signal that cranking finished successfully
 
 print("Starting game. Press buttons in correct order.")
 print_state()
 
 try:
-    while True:
+    while current_state != gameStates.END:
         # MAGNETO
         if current_state == gameStates.WAIT_FOR_MAGNETO:
             if GPIO.input(Inputs.MAG.value) == GPIO.LOW:
@@ -83,7 +85,7 @@ try:
                     crank_thread = threading.Thread(target=crank_engine)
                     crank_thread.start()
             else:
-                # Starter button released
+                # Starter button released early
                 stop_cranking.set()
 
             # Only transition to END if cranking was successful (completed after 5 seconds)
@@ -98,15 +100,3 @@ except KeyboardInterrupt:
 finally:
     GPIO.cleanup()
     pygame.mixer.quit()
-
-
-'''
-while True:
-    try:
-        print(pressure.getPressure())
-        time.sleep(0.3)
-    except (KeyboardInterrupt, SystemExit):
-        GPIO.cleanup()
-        print("[INFO] Exiting...")
-        sys.exit()
-'''
