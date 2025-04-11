@@ -50,7 +50,7 @@ def crank_engine():
         if stop_cranking.is_set():
             crank_sound.stop()
             print("Starter released early: cranking aborted.")
-            crank_completed.set()  # Signal cranking as completed (even if aborted early)
+            crank_completed.set()  # Signal cranking as aborted
             return  # Stop cranking
 
         time.sleep(0.1)
@@ -89,9 +89,15 @@ try:
                 stop_cranking.set()
 
             # Only transition to END if cranking was successful (completed after 5 seconds)
+            # Ensure that the state only transitions to END when cranking completes successfully
             if crank_completed.is_set():
-                current_state = gameStates.END
-                print_state()
+                # Only move to END if the cranking was completed successfully (not aborted)
+                if stop_cranking.is_set():
+                    print("Cranking aborted. Staying in current state.")
+                else:
+                    current_state = gameStates.END
+                    print_state()
+
         elif current_state == gameStates.END:
             time.sleep(10)
 except KeyboardInterrupt:
