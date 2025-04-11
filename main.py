@@ -81,7 +81,7 @@ try:
         elif current_state == gameStates.WAIT_FOR_STARTER:
             starter_input = GPIO.input(Inputs.STARTER.value)
 
-            # Starter button is pressed, start cranking
+            # Starter button is pressed, start cranking if not already cranking
             if starter_input == GPIO.LOW:
                 if crank_thread is None or not crank_thread.is_alive():
                     crank_thread = threading.Thread(target=crank_engine)
