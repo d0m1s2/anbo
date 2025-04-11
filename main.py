@@ -4,7 +4,7 @@ import sys
 import time
 import pygame
 import threading
-from stateMachhine import gameStates
+from stateMachine import gameStates
 from enum import Enum
 
 
