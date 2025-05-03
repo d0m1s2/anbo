@@ -23,17 +23,17 @@ def getPressure():
     return pressure
     
 
-hx = HX711(5, 6, gain=32)
+hx = HX711(5, 6, gain=64)
 hx.setReadingFormat("MSB", "MSB")
 hx.autosetOffset()
-referenceUnit = 9000
+referenceUnit = 2500
 hx.setReferenceUnit(referenceUnit)
 
 if __name__ == "__main__":
     try:
         while True:
             print(getPressure())
-            time.sleep(1)
+            time.sleep(0.2)
     except (KeyboardInterrupt, SystemExit):
         GPIO.cleanup()
         print("[INFO] Exiting...")
