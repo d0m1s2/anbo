@@ -2,13 +2,16 @@ import RPi.GPIO as GPIO
 import sys
 import time
 import pygame
+import serial
 from stateMachine import gameStates
 from enum import Enum
 import config as cfg
 from get_pico_data import SensorReader
 from gpiozero import Servo
 import pigpio
+import threading
 from distSensor import distSensor
+
 
 class Inputs(Enum):
     MAG = cfg.MAG_PIN
@@ -28,6 +31,33 @@ if not pi.connected:
     print("Failed to connect to pigpio daemon.")
     sys.exit()
 
+def set_oil_servo_angle(angle):
+    # Convert angle to pulsewidth: 0° = 500µs, 180° = 2500µs
+    pulsewidth = int(500 + (1-(angle / 180.0)) * 2000)
+    pi.set_servo_pulsewidth(cfg.OIL_PIN, pulsewidth)
+
+
+def calculate_oil_angle(oil_pressure):
+    oil_angle = oil_pressure * cfg.PRESSURE_GOAL_ANGLE
+    return oil_angle
+
+def read_serial_loop():
+    global current_val, last_val, oil_pressure
+    try:
+        with serial.Serial('/dev/ttyUSB1', baudrate=9600, timeout=1) as ser:
+            while True:
+                line = ser.readline().decode('utf-8', errors='replace').strip()
+                if line in {'0', '1', '2'}:
+                    with lock:
+                        val = int(line)
+                        last_val = current_val
+                        current_val = val
+                        if last_val is not None and current_val < last_val:
+                            oil_pressure += cfg.PUMP_STEP
+                            oil_pressure = min(oil_pressure, 1.0)
+    except serial.SerialException as e:
+        print(f"Serial error: {e}")
+        sys.exit()
 
 
 
@@ -47,7 +77,7 @@ valve_start = False
 
 
 input_states = {pin: GPIO.input(pin.value) for pin in Inputs}
-current_state = gameStates.GAME_BEGIN
+
 
 
 
@@ -103,11 +133,16 @@ def print_state():
     print(f"Current State: {current_state.name}")
 
 
-
-
+current_state = gameStates.IDLE
+oil_pressure = 0.0
+current_val = None
+last_val = None
+lock = threading.Lock()
 
 # Main loop
 try:
+    reader_thread = threading.Thread(target=read_serial_loop, daemon=True)
+    reader_thread.start()
     print("Starting game. Press buttons in correct order.")
     print_state()
     get_start_values()
@@ -119,6 +154,7 @@ try:
         if current_state == gameStates.IDLE:
             prop_enable = False
             dist = dSensor.measure_distance()
+            print(dist) 
             if dist <= cfg.DIST_TRIGGER:
                 current_state = gameStates.GAME_BEGIN
                 print_state()
@@ -157,7 +193,6 @@ try:
             if abs(throttle_value-cfg.THROTTLE_MIN) <= cfg.THROTTLE_TOLERANCE:
                 current_state = gameStates.WAIT_FOR_VALVE
                 print_state()
-                
             time.sleep(0.05)
         
         if current_state == gameStates.WAIT_FOR_VALVE:
@@ -168,17 +203,31 @@ try:
             valve_value = pico_data.get('valve')
             if valve_start == True:
                 if valve_value < cfg.VALVE_THRESHOLD:
-                    current_state = gameStates.WAIT_FOR_STARTER
+                    current_state = gameStates.WAIT_FOR_OIL_PUMP
                     print_state()
             elif valve_start == False:
                 if valve_value >= cfg.VALVE_THRESHOLD:
-                    current_state = gameStates.WAIT_FOR_STARTER
+                    current_state = gameStates.WAIT_FOR_OIL_PUMP
                     print_state()
             time.sleep(0.05)
                     
+        if current_state == gameStates.WAIT_FOR_OIL_PUMP:
+            if not sounds_played['pump']:
+                pygame.mixer.stop()
+                sounds['pump'].play()
+                sounds_played['pump'] = True    
+            with lock:
+                angle = calculate_oil_angle(oil_pressure)
+            set_oil_servo_angle(angle)
+            with lock:
+                if oil_pressure >= 1:
+                    current_state = gameStates.WAIT_FOR_STARTER
+                    print_state()
+
+
         
-        # MAGNETO
-        
+
+
 
         # STARTER
         elif current_state == gameStates.WAIT_FOR_STARTER:
@@ -251,3 +300,5 @@ except KeyboardInterrupt:
 finally:
     GPIO.cleanup()
     pygame.mixer.quit()
+    pi.set_servo_pulsewidth(cfg.OIL_PIN, 0)
+    pi.stop()

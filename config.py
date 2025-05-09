@@ -18,11 +18,13 @@ MAGNETO_SOUND = "/home/anbo/anbo_main/anbo_audio/magneto.mp3"
 END_SOUND = "/home/anbo/anbo_main/anbo_audio/end.wav"
 
 #communication with pico
-DIST_TRIGGER = 10
-VALVE_THRESHOLD = 0.7
+DIST_TRIGGER = 30
+VALVE_THRESHOLD = 0.3
 THROTTLE_MIN = 0.5
 THROTTLE_MAX = 0.92
 THROTTLE_TOLERANCE = 0.07
+PRESSURE_GOAL_ANGLE = 73
+PUMP_STEP = 0.07
 SLEEP_TIME = 0.1
 BAUDRATE = 19200
 SERIAL_PIN = '/dev/ttyS0'
