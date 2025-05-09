@@ -16,6 +16,7 @@ from distSensor import distSensor
 class Inputs(Enum):
     MAG = cfg.MAG_PIN
     STARTER = cfg.STARTER_PIN
+    HELP_BUTTON = cfg.HELP_BUTTON_PIN
 
 dSensor = distSensor(trig_pin=cfg.DSENSOR_TRIG_PIN, echo_pin=cfg.DSENSOR_ECHO_PIN)
 
@@ -23,6 +24,10 @@ dSensor = distSensor(trig_pin=cfg.DSENSOR_TRIG_PIN, echo_pin=cfg.DSENSOR_ECHO_PI
 reader = SensorReader()
 reader.start()
 
+
+last_state = None
+state_enter_time = time.time()
+last_voiceline_time = time.time()
 
 
 # Initialize pigpio
@@ -44,7 +49,7 @@ def calculate_oil_angle(oil_pressure):
 def read_serial_loop():
     global current_val, last_val, oil_pressure
     try:
-        with serial.Serial('/dev/ttyUSB1', baudrate=9600, timeout=1) as ser:
+        with serial.Serial('/dev/ttyUSB0', baudrate=19200, timeout=1) as ser:
             while True:
                 line = ser.readline().decode('utf-8', errors='replace').strip()
                 if line in {'0', '1', '2'}:
@@ -55,6 +60,8 @@ def read_serial_loop():
                         if last_val is not None and current_val < last_val:
                             oil_pressure += cfg.PUMP_STEP
                             oil_pressure = min(oil_pressure, 1.0)
+                        print(f"Received: {line}, last_val: {last_val}, current_val: {current_val}")
+
     except serial.SerialException as e:
         print(f"Serial error: {e}")
         sys.exit()
@@ -148,10 +155,16 @@ try:
     get_start_values()
     pygame.mixer.stop()
     while True:
-        pico_data = reader.get_data()
+        if current_state != last_state:
+            last_state = current_state
+            state_enter_time = time.time()
+            last_voiceline_time = 0  # Force first play immediately when entering
 
+        pico_data = reader.get_data()
+        #print(f"P:{oil_pressure}")
 
         if current_state == gameStates.IDLE:
+            set_oil_servo_angle(0)
             prop_enable = False
             dist = dSensor.measure_distance()
             print(dist) 
@@ -162,18 +175,21 @@ try:
 
 
         if current_state == gameStates.GAME_BEGIN:
+            set_oil_servo_angle(0)
             sounds['game_begin'].play()
-            time.sleep(24)
+            time.sleep(3)
             current_state = gameStates.WAIT_FOR_MAGNETO
             print_state()
         
 
 
         if current_state == gameStates.WAIT_FOR_MAGNETO:
-            
-            if not sounds_played['magneto']:
+            set_oil_servo_angle(0)
+            if time.time() - last_voiceline_time >= (sounds['magneto'].get_length() +cfg.VOICE_REPEAT_TIME):
                 pygame.mixer.stop()
+                time.sleep(1)
                 sounds['magneto'].play()
+                last_voiceline_time = time.time()
                 sounds_played['magneto'] = True
             if GPIO.input(Inputs.MAG.value) != mag_start:
                 current_state = gameStates.WAIT_FOR_THROTTLE
@@ -183,11 +199,13 @@ try:
                 
 
         if current_state == gameStates.WAIT_FOR_THROTTLE:
-            
-            if not sounds_played['throttle']:
-                    pygame.mixer.stop()
-                    sounds['throttle'].play()
-                    sounds_played['throttle'] = True
+            set_oil_servo_angle(0)
+            if time.time() - last_voiceline_time >= (sounds['throttle'].get_length()+cfg.VOICE_REPEAT_TIME):
+                pygame.mixer.stop()
+                time.sleep(1)
+                sounds['throttle'].play()
+                last_voiceline_time = time.time()
+                sounds_played['throttle'] = True
             throttle_value = pico_data.get('throttle')
             print(throttle_value)
             if abs(throttle_value-cfg.THROTTLE_MIN) <= cfg.THROTTLE_TOLERANCE:
@@ -196,10 +214,14 @@ try:
             time.sleep(0.05)
         
         if current_state == gameStates.WAIT_FOR_VALVE:
-            if not sounds_played['valve']:
+            set_oil_servo_angle(0)
+            if time.time() - last_voiceline_time >= (sounds['valve'].get_length()+cfg.VOICE_REPEAT_TIME):
                 pygame.mixer.stop()
+                time.sleep(1)
                 sounds['valve'].play()
+                last_voiceline_time = time.time()
                 sounds_played['valve'] = True
+
             valve_value = pico_data.get('valve')
             if valve_start == True:
                 if valve_value < cfg.VALVE_THRESHOLD:
@@ -212,30 +234,30 @@ try:
             time.sleep(0.05)
                     
         if current_state == gameStates.WAIT_FOR_OIL_PUMP:
-            if not sounds_played['pump']:
+            if time.time() - last_voiceline_time >= (sounds['pump'].get_length()+cfg.VOICE_REPEAT_TIME):
                 pygame.mixer.stop()
+                time.sleep(1)
                 sounds['pump'].play()
-                sounds_played['pump'] = True    
+                last_voiceline_time = time.time()
+                sounds_played['pump'] = True
+
             with lock:
                 angle = calculate_oil_angle(oil_pressure)
             set_oil_servo_angle(angle)
             with lock:
                 if oil_pressure >= 1:
+                    set_oil_servo_angle(cfg.PRESSURE_GOAL_ANGLE)
                     current_state = gameStates.WAIT_FOR_STARTER
-                    print_state()
+                    print_state()        
 
-
-        
-
-
-
-        # STARTER
-        elif current_state == gameStates.WAIT_FOR_STARTER:
+        if current_state == gameStates.WAIT_FOR_STARTER:
             starter_input = GPIO.input(Inputs.STARTER.value)
 
-            if not sounds_played['starter']:
+            if time.time() - last_voiceline_time >= (sounds['starter'].get_length()+cfg.VOICE_REPEAT_TIME):
                 pygame.mixer.stop()
+                time.sleep(1)
                 sounds['starter'].play()
+                last_voiceline_time = time.time()
                 sounds_played['starter'] = True
 
             # When the starter button is pressed
@@ -254,29 +276,38 @@ try:
                 print("Starter released early: cranking aborted.")
 
             # Check if cranking was held long enough (5 seconds)
-            if is_cranking and time.time() - cranking_start_time >= 5 and not crank_completed:
+            if is_cranking and time.time() - cranking_start_time >= cfg.CRANK_TIME and not crank_completed and GPIO.input(Inputs.HELP_BUTTON.value) == GPIO.LOW:
                 sounds['crank'].stop()   # Stop the cranking sound after 5 seconds
                 print("Starter held long enough: engine running!")
                 sounds['running'].play()  # Play the engine running sound
                 crank_completed = True  # Mark the cranking as complete
+                GPIO.output(PROP_ENABLE_PIN, GPIO.LOW)
+                time.sleep(2)
 
             if crank_completed:
                     current_state = gameStates.END
                     print_state()
-            # If the cranking was aborted, just continue
-                
 
-        # END state (just wait here for now)
-        elif current_state == gameStates.END:
+        if current_state == gameStates.END:
             if not prop_enable:
                 prop_enable = True
                 prop_start_time = time.time()
                 sounds['end'].play()
 
-            elif time.time() - prop_start_time >= 40:
+            elif time.time() - prop_start_time >= sounds['end'].get_length():
                 prop_enable = False
+                pygame.mixer.stop()
+                oil_pressure = 0.0
+                current_val = None
+                last_val = None
+                crank_completed = False
+                is_cranking = False
+                sounds_played = {key: False for key in sounds}
+                GPIO.output(PROP_ENABLE_PIN, GPIO.LOW)
+                get_start_values()
                 current_state = gameStates.IDLE
                 print_state()
+
 
         
         

@@ -30,22 +30,27 @@ lock = threading.Lock()
 def read_serial_loop():
     global current_val, last_val, oil_pressure
     try:
-        with serial.Serial('/dev/ttyUSB1', baudrate=9600, timeout=1) as ser:
+        with serial.Serial('/dev/ttyUSB0', baudrate=19200, timeout=1) as ser:
+            time.sleep(2)
+            ser.reset_input_buffer()
             while True:
-                line = ser.readline().decode('utf-8', errors='replace').strip()
-                if line in {'0', '1', '2'}:
-                    with lock:
-                        val = int(line)
-                        print(f"Raw Arduino Value: {val}")
-                        last_val = current_val
-                        current_val = val
-                        if last_val is not None and current_val < last_val:
-                            oil_pressure += 0.05
-                            oil_pressure = min(oil_pressure, 1.0)
-                # Don't sleep — loop is fast and non-blocking
+                if ser.in_waiting > 0:
+                    line = ser.readline().decode('utf-8', errors='replace').strip()
+                    if line in {'0', '1', '2'}:
+                        with lock:
+                            val = int(line)
+                            print(f"Raw Arduino Value: {val}")
+                            last_val = current_val
+                            current_val = val
+                            if last_val is not None and current_val < last_val:
+                                oil_pressure += cfg.PUMP_STEP
+                                oil_pressure = min(oil_pressure, 1.0)
+                    else:
+                        print(f"Bogus data: {line}")
     except serial.SerialException as e:
         print(f"Serial error: {e}")
         sys.exit()
+
 
 # Start reader thread
 reader_thread = threading.Thread(target=read_serial_loop, daemon=True)

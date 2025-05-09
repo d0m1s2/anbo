@@ -3,7 +3,7 @@ import time
 
 # Use BCM numbering
 GPIO.setmode(GPIO.BCM)
-pinas = 12
+pinas = 11
 
 # Set up pin 25 as input with a pull-up resistor (change if needed)
 GPIO.setup(pinas, GPIO.IN, pull_up_down=GPIO.PUD_UP)
