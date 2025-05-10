@@ -16,6 +16,7 @@ class SensorReader(threading.Thread):
         while self.running:
             try:
                 if self.ser.in_waiting:
+                    
                     line = self.ser.readline().decode('utf-8').strip()
                     if line:
                         data = json.loads(line)

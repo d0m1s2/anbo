@@ -19,6 +19,7 @@ MAGNETO_SOUND = "/home/anbo/anbo_main/anbo_audio/magneto.mp3"
 END_SOUND = "/home/anbo/anbo_main/anbo_audio/end.wav"
 
 #communication with pico
+SCRIPT_RESTING_TIME = 20
 CRANK_TIME = 2
 DIST_TRIGGER = 30
 VALVE_THRESHOLD = 0.3
@@ -27,6 +28,7 @@ THROTTLE_MAX = 0.92
 THROTTLE_TOLERANCE = 0.07
 PRESSURE_GOAL_ANGLE = 73
 PUMP_STEP = 0.15
+INPUT_TIMEOUT = 30
 VOICE_REPEAT_TIME = 5
 SLEEP_TIME = 0.1
 BAUDRATE = 19200
