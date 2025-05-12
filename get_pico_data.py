@@ -17,7 +17,7 @@ class SensorReader(threading.Thread):
             try:
                 if self.ser.in_waiting:
                     
-                    line = self.ser.readline().decode('utf-8').strip()
+                    line = self.ser.readline().decode('utf-8', errors='replace').strip()
                     if line:
                         data = json.loads(line)
                         with self.lock:
@@ -28,8 +28,10 @@ class SensorReader(threading.Thread):
                 print(f"[ERROR] Serial exception: {e}")
                 break
             except Exception as e:
-                print(f"[ERROR] Unexpected exception: {e}")
-                break
+                print(f"[ERROR] Unexpected pico exception: {e}")
+                with open("error_log.txt", "a") as f:
+                    import traceback
+                    f.write(traceback.format_exc())
             time.sleep(0.01)  # Tiny sleep to yield CPU
 
 

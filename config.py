@@ -1,6 +1,6 @@
 #Raspberry pins (GP__)
 STARTER_PIN = 16
-MAG_PIN = 19
+MAG_PIN = 26
 OIL_PIN = 12
 TACHO_PIN = 13
 PROP_ENABLE_PIN = 18

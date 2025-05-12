@@ -116,17 +116,24 @@ print("c")
 
 
 pygame.mixer.init(frequency=44100, size=-16, channels=2, buffer=1024)
-sounds = {
-    'crank': pygame.mixer.Sound(cfg.CRANK_SOUND),
-    'running': pygame.mixer.Sound(cfg.RUNNING_SOUND),
-    'valve': pygame.mixer.Sound(cfg.VALVE_SOUND),
-    'throttle': pygame.mixer.Sound(cfg.THROTTLE_SOUND),
-    'pump': pygame.mixer.Sound(cfg.PUMP_SOUND),
-    'magneto': pygame.mixer.Sound(cfg.MAGNETO_SOUND),
-    'end': pygame.mixer.Sound(cfg.END_SOUND),
-    'game_begin' : pygame.mixer.Sound(cfg.GAME_BEGIN_SOUND),
-    'starter' : pygame.mixer.Sound(cfg.STARTER_SOUND)
-}
+
+sounds = {}
+for key, path in {
+    'crank': cfg.CRANK_SOUND,
+    'running': cfg.RUNNING_SOUND,
+    'valve': cfg.VALVE_SOUND,
+    'throttle': cfg.THROTTLE_SOUND,
+    'pump': cfg.PUMP_SOUND,
+    'magneto': cfg.MAGNETO_SOUND,
+    'end': cfg.END_SOUND,
+    'game_begin': cfg.GAME_BEGIN_SOUND,
+    'starter': cfg.STARTER_SOUND
+}.items():
+    try:
+        sounds[key] = pygame.mixer.Sound(path)
+        print(f"{key} loaded successfully")
+    except Exception as e:
+        print(f"Error loading {key} ({path}): {e}")
 
 
 sounds_played = {key: False for key in sounds}
@@ -527,10 +534,10 @@ try:
             GPIO.output(PROP_ENABLE_PIN, GPIO.LOW)
 
 except Exception as e:
-    print(f"[ERROR] Unexpected exception: {e}")
-    print("Restarting script in 3 seconds...")
-    time.sleep(3)
-    os.execv(sys.executable, ['python3'] + sys.argv)
+    print(f"[ERROR] Bombo exception: {e}")
+    with open("error_log.txt", "a") as f:
+        import traceback
+        f.write(traceback.format_exc())
 except KeyboardInterrupt:
     print("\nExiting...")
     # pico reader close
