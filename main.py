@@ -11,7 +11,7 @@ from gpiozero import Servo
 import pigpio
 import threading
 from distSensor import distSensor
-
+from derivative_adc_monitor import ADS1115Monitor
 
 class Inputs(Enum):
     MAG = cfg.MAG_PIN
@@ -52,34 +52,30 @@ def calculate_oil_angle(oil_pressure):
     return oil_angle
 def read_serial_loop():
     global current_val, last_val, oil_pressure, serial_thread_running
-    try:
-        with serial.Serial('/dev/ttyUSB0', baudrate=19200, timeout=1) as ser:
-            while serial_thread_running:
-                try:
-                    line_bytes = ser.readline()
-                    line = line_bytes.decode('utf-8', errors='replace').strip()
-                    if line in {'0', '1', '2'}:
-                        with lock:
-                            val = int(line)
-                            last_val = current_val
-                            current_val = val
-                            if last_val is not None and current_val < last_val:
-                                oil_pressure += cfg.PUMP_STEP
-                                oil_pressure = min(oil_pressure, 1.0)
-                            print(f"Received: {line}, last_val: {last_val}, current_val: {current_val}")
-                except UnicodeDecodeError as ude:
-                    print(f"[WARN] Decode error: {ude} — skipping line.")
-                except Exception as inner_e:
-                    print(f"[WARN] Unexpected error in serial loop: {inner_e}")
-    except serial.SerialException as e:
-        print(f"Serial error: {e}")
-        sys.exit()
+    monitor = ADS1115Monitor()
+
+    while serial_thread_running:
+        try:
+            triggered = monitor.get_triggered_channel()
+            if triggered is not None:
+                with lock:
+                    val = triggered
+                    last_val = current_val
+                    current_val = val
+                    if last_val is not None and current_val < last_val:
+                        oil_pressure += cfg.PUMP_STEP
+                        print("oil pressure added")
+                        oil_pressure = min(oil_pressure, 1.0)
+        except Exception as e:
+            print(f"[WARN] Unexpected error in ADC loop: {e}")
+        time.sleep(0.01)  # slight delay to avoid CPU overuse
+
 
 
 
 def restart_serial_thread():
     global reader_thread, serial_thread_running
-    print("Restarting serial thread...")
+    #print("Restarting serial thread...")
     serial_thread_running = False
     reader_thread.join()
     serial_thread_running = True
@@ -206,17 +202,19 @@ try:
             set_oil_servo_angle(0)
             prop_enable = False
             dist = dSensor.measure_distance()
-            print(dist) 
+            #print(dist) 
             if dist <= cfg.DIST_TRIGGER:
                 current_state = gameStates.GAME_BEGIN
-                print_state()
-            time.sleep(0.05)
+                print_state() 
+                print(dist) 
+            time.sleep(0.1)
 
 
         if current_state == gameStates.GAME_BEGIN:
             set_oil_servo_angle(0)
             sounds['game_begin'].play()
             time.sleep(sounds['game_begin'].get_length())
+            #time.sleep(3)
             state_enter_time = time.time() 
             current_state = gameStates.WAIT_FOR_MAGNETO
             prop_enable = False

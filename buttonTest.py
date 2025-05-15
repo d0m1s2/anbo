@@ -5,7 +5,7 @@ import config as cfg
 
 # Use BCM numbering
 GPIO.setmode(GPIO.BCM)
-pinas = cfg.MAG_PIN
+pinas = cfg.HELP_BUTTON_PIN
 
 # Set up pin 25 as input with a pull-up resistor (change if needed)
 GPIO.setup(pinas, GPIO.IN, pull_up_down=GPIO.PUD_UP)
