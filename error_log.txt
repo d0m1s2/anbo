@@ -6061,3 +6061,32 @@ Traceback (most recent call last):
     dummy, res = struct.unpack('12sI', sl.s.recv(_SOCK_CMD_LEN))
                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 struct.error: unpack requires a buffer of 16 bytes
+Traceback (most recent call last):
+  File "/home/anbo/anbo_main/main.py", line 206, in <module>
+    if dist <= cfg.DIST_TRIGGER:
+       ^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: '<=' not supported between instances of 'NoneType' and 'int'
+Traceback (most recent call last):
+  File "/home/anbo/anbo_main/get_pico_data.py", line 20, in run
+    line = self.ser.readline().decode('utf-8', errors='replace').strip()
+           ^^^^^^^^^^^^^^^^^^^
+  File "/home/anbo/env/lib/python3.11/site-packages/serial/serialposix.py", line 575, in read
+    buf = os.read(self.fd, size - len(read))
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: 'NoneType' object cannot be interpreted as an integer
+Traceback (most recent call last):
+  File "/home/anbo/anbo_main/get_pico_data.py", line 20, in run
+    line = self.ser.readline().decode('utf-8', errors='replace').strip()
+           ^^^^^^^^^^^^^^^^^^^
+  File "/home/anbo/env/lib/python3.11/site-packages/serial/serialposix.py", line 575, in read
+    buf = os.read(self.fd, size - len(read))
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: 'NoneType' object cannot be interpreted as an integer
+Traceback (most recent call last):
+  File "/home/anbo/anbo_main/get_pico_data.py", line 20, in run
+    line = self.ser.readline().decode('utf-8', errors='replace').strip()
+           ^^^^^^^^^^^^^^^^^^^
+  File "/home/anbo/env/lib/python3.11/site-packages/serial/serialposix.py", line 575, in read
+    buf = os.read(self.fd, size - len(read))
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: 'NoneType' object cannot be interpreted as an integer

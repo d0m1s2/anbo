@@ -6,7 +6,7 @@ TACHO_PIN = 13
 PROP_ENABLE_PIN = 18
 DSENSOR_TRIG_PIN = 17
 DSENSOR_ECHO_PIN = 27
-HELP_BUTTON_PIN = 11
+HELP_BUTTON_PIN = 25
 
 GAME_BEGIN_SOUND = "/home/anbo/anbo_main/anbo_audio/gamebegin.wav"
 CRANK_SOUND = "/home/anbo/anbo_main/anbo_audio/engine_crank.mp3"

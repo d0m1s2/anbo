@@ -237,7 +237,7 @@ try:
         
 
 
-        if current_state == gameStates.WAIT_FOR_MAGNETO:
+        elif current_state == gameStates.WAIT_FOR_MAGNETO:
             set_oil_servo_angle(0)
             if has_timed_out(cfg.INPUT_TIMEOUT+20):
                 print("Input timeout. Returning to IDLE.")
@@ -290,7 +290,7 @@ try:
                 
                 
 
-        if current_state == gameStates.WAIT_FOR_THROTTLE:
+        elif current_state == gameStates.WAIT_FOR_THROTTLE:
             set_oil_servo_angle(0)
             if has_timed_out(cfg.INPUT_TIMEOUT):
                 print("Input timeout. Returning to IDLE.")
@@ -344,7 +344,7 @@ try:
                 print_state()
             time.sleep(0.05)
         
-        if current_state == gameStates.WAIT_FOR_VALVE:
+        elif current_state == gameStates.WAIT_FOR_VALVE:
             set_oil_servo_angle(0)
             if has_timed_out(cfg.INPUT_TIMEOUT):
                 print("Input timeout. Returning to IDLE.")
@@ -388,7 +388,7 @@ try:
                     print_state()
             time.sleep(0.05)
                     
-        if current_state == gameStates.WAIT_FOR_OIL_PUMP:
+        elif current_state == gameStates.WAIT_FOR_OIL_PUMP:
             if has_timed_out(cfg.INPUT_TIMEOUT):
                 print("Input timeout. Returning to IDLE.")
                 pygame.mixer.stop()
@@ -427,7 +427,7 @@ try:
                     current_state = gameStates.WAIT_FOR_STARTER
                     print_state()        
 
-        if current_state == gameStates.WAIT_FOR_STARTER:
+        elif current_state == gameStates.WAIT_FOR_STARTER:
             if has_timed_out(cfg.INPUT_TIMEOUT+20):
                 print("Input timeout. Returning to IDLE.")
                 pygame.mixer.stop()
@@ -486,7 +486,7 @@ try:
                     current_state = gameStates.END
                     print_state()
 
-        if current_state == gameStates.END:
+        elif current_state == gameStates.END:
             if not prop_enable:
         # Reset Arduino via GPIO10
                 print("Resetting Arduino...")
