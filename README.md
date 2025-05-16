@@ -1,5 +1,6 @@
 before launch requires:
-sudo pigpiod
 source env/bin/activate
-sudo python3 anbo_main/ ...
+cd anbo_main
+sudo pigpiod
+python3 main.py
 
