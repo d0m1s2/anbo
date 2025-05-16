@@ -6090,3 +6090,333 @@ Traceback (most recent call last):
     buf = os.read(self.fd, size - len(read))
           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 TypeError: 'NoneType' object cannot be interpreted as an integer
+Traceback (most recent call last):
+  File "/home/anbo/anbo_main/main.py", line 202, in <module>
+    set_oil_servo_angle(0)
+  File "/home/anbo/anbo_main/main.py", line 45, in set_oil_servo_angle
+    pi.set_servo_pulsewidth(cfg.OIL_PIN, pulsewidth)
+  File "/home/anbo/env/lib/python3.11/site-packages/pigpio.py", line 1678, in set_servo_pulsewidth
+    return _u2i(_pigpio_command(
+                ^^^^^^^^^^^^^^^^
+  File "/home/anbo/env/lib/python3.11/site-packages/pigpio.py", line 1026, in _pigpio_command
+    dummy, res = struct.unpack('12sI', sl.s.recv(_SOCK_CMD_LEN))
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+struct.error: unpack requires a buffer of 16 bytes
+Traceback (most recent call last):
+  File "/home/anbo/anbo_main/get_pico_data.py", line 20, in run
+    line = self.ser.readline().decode('utf-8', errors='replace').strip()
+           ^^^^^^^^^^^^^^^^^^^
+  File "/home/anbo/env/lib/python3.11/site-packages/serial/serialposix.py", line 575, in read
+    buf = os.read(self.fd, size - len(read))
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: 'NoneType' object cannot be interpreted as an integer
+Traceback (most recent call last):
+  File "/home/anbo/anbo_main/get_pico_data.py", line 20, in run
+    line = self.ser.readline().decode('utf-8', errors='replace').strip()
+           ^^^^^^^^^^^^^^^^^^^
+  File "/home/anbo/env/lib/python3.11/site-packages/serial/serialposix.py", line 575, in read
+    buf = os.read(self.fd, size - len(read))
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: 'NoneType' object cannot be interpreted as an integer
+Traceback (most recent call last):
+  File "/home/anbo/anbo_main/get_pico_data.py", line 20, in run
+    line = self.ser.readline().decode('utf-8', errors='replace').strip()
+           ^^^^^^^^^^^^^^^^^^^
+  File "/home/anbo/env/lib/python3.11/site-packages/serial/serialposix.py", line 575, in read
+    buf = os.read(self.fd, size - len(read))
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: 'NoneType' object cannot be interpreted as an integer
+Traceback (most recent call last):
+  File "/home/anbo/anbo_main/get_pico_data.py", line 20, in run
+    line = self.ser.readline().decode('utf-8', errors='replace').strip()
+           ^^^^^^^^^^^^^^^^^^^
+  File "/home/anbo/env/lib/python3.11/site-packages/serial/serialposix.py", line 575, in read
+    buf = os.read(self.fd, size - len(read))
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: 'NoneType' object cannot be interpreted as an integer
+Traceback (most recent call last):
+  File "/home/anbo/anbo_main/get_pico_data.py", line 20, in run
+    line = self.ser.readline().decode('utf-8', errors='replace').strip()
+           ^^^^^^^^^^^^^^^^^^^
+  File "/home/anbo/env/lib/python3.11/site-packages/serial/serialposix.py", line 575, in read
+    buf = os.read(self.fd, size - len(read))
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: 'NoneType' object cannot be interpreted as an integer
+Traceback (most recent call last):
+  File "/home/anbo/anbo_main/get_pico_data.py", line 20, in run
+    line = self.ser.readline().decode('utf-8', errors='replace').strip()
+           ^^^^^^^^^^^^^^^^^^^
+  File "/home/anbo/env/lib/python3.11/site-packages/serial/serialposix.py", line 575, in read
+    buf = os.read(self.fd, size - len(read))
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: 'NoneType' object cannot be interpreted as an integer
+Traceback (most recent call last):
+  File "/home/anbo/anbo_main/get_pico_data.py", line 20, in run
+    line = self.ser.readline().decode('utf-8', errors='replace').strip()
+           ^^^^^^^^^^^^^^^^^^^
+  File "/home/anbo/env/lib/python3.11/site-packages/serial/serialposix.py", line 575, in read
+    buf = os.read(self.fd, size - len(read))
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: 'NoneType' object cannot be interpreted as an integer
+Traceback (most recent call last):
+  File "/home/anbo/anbo_main/get_pico_data.py", line 20, in run
+    line = self.ser.readline().decode('utf-8', errors='replace').strip()
+           ^^^^^^^^^^^^^^^^^^^
+  File "/home/anbo/env/lib/python3.11/site-packages/serial/serialposix.py", line 575, in read
+    buf = os.read(self.fd, size - len(read))
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: 'NoneType' object cannot be interpreted as an integer
+Traceback (most recent call last):
+  File "/home/anbo/anbo_main/get_pico_data.py", line 20, in run
+    line = self.ser.readline().decode('utf-8', errors='replace').strip()
+           ^^^^^^^^^^^^^^^^^^^
+  File "/home/anbo/env/lib/python3.11/site-packages/serial/serialposix.py", line 575, in read
+    buf = os.read(self.fd, size - len(read))
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: 'NoneType' object cannot be interpreted as an integer
+Traceback (most recent call last):
+  File "/home/anbo/anbo_main/get_pico_data.py", line 20, in run
+    line = self.ser.readline().decode('utf-8', errors='replace').strip()
+           ^^^^^^^^^^^^^^^^^^^
+  File "/home/anbo/env/lib/python3.11/site-packages/serial/serialposix.py", line 575, in read
+    buf = os.read(self.fd, size - len(read))
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: 'NoneType' object cannot be interpreted as an integer
+Traceback (most recent call last):
+  File "/home/anbo/anbo_main/get_pico_data.py", line 20, in run
+    line = self.ser.readline().decode('utf-8', errors='replace').strip()
+           ^^^^^^^^^^^^^^^^^^^
+  File "/home/anbo/env/lib/python3.11/site-packages/serial/serialposix.py", line 575, in read
+    buf = os.read(self.fd, size - len(read))
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: 'NoneType' object cannot be interpreted as an integer
+Traceback (most recent call last):
+  File "/home/anbo/anbo_main/get_pico_data.py", line 20, in run
+    line = self.ser.readline().decode('utf-8', errors='replace').strip()
+           ^^^^^^^^^^^^^^^^^^^
+  File "/home/anbo/env/lib/python3.11/site-packages/serial/serialposix.py", line 575, in read
+    buf = os.read(self.fd, size - len(read))
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: 'NoneType' object cannot be interpreted as an integer
+Traceback (most recent call last):
+  File "/home/anbo/anbo_main/get_pico_data.py", line 20, in run
+    line = self.ser.readline().decode('utf-8', errors='replace').strip()
+           ^^^^^^^^^^^^^^^^^^^
+  File "/home/anbo/env/lib/python3.11/site-packages/serial/serialposix.py", line 575, in read
+    buf = os.read(self.fd, size - len(read))
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: 'NoneType' object cannot be interpreted as an integer
+Traceback (most recent call last):
+  File "/home/anbo/anbo_main/get_pico_data.py", line 20, in run
+    line = self.ser.readline().decode('utf-8', errors='replace').strip()
+           ^^^^^^^^^^^^^^^^^^^
+  File "/home/anbo/env/lib/python3.11/site-packages/serial/serialposix.py", line 575, in read
+    buf = os.read(self.fd, size - len(read))
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: 'NoneType' object cannot be interpreted as an integer
+Traceback (most recent call last):
+  File "/home/anbo/anbo_main/get_pico_data.py", line 20, in run
+    line = self.ser.readline().decode('utf-8', errors='replace').strip()
+           ^^^^^^^^^^^^^^^^^^^
+  File "/home/anbo/env/lib/python3.11/site-packages/serial/serialposix.py", line 575, in read
+    buf = os.read(self.fd, size - len(read))
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: 'NoneType' object cannot be interpreted as an integer
+Traceback (most recent call last):
+  File "/home/anbo/anbo_main/get_pico_data.py", line 20, in run
+    line = self.ser.readline().decode('utf-8', errors='replace').strip()
+           ^^^^^^^^^^^^^^^^^^^
+  File "/home/anbo/env/lib/python3.11/site-packages/serial/serialposix.py", line 575, in read
+    buf = os.read(self.fd, size - len(read))
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: 'NoneType' object cannot be interpreted as an integer
+Traceback (most recent call last):
+  File "/home/anbo/anbo_main/get_pico_data.py", line 20, in run
+    line = self.ser.readline().decode('utf-8', errors='replace').strip()
+           ^^^^^^^^^^^^^^^^^^^
+  File "/home/anbo/env/lib/python3.11/site-packages/serial/serialposix.py", line 575, in read
+    buf = os.read(self.fd, size - len(read))
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: 'NoneType' object cannot be interpreted as an integer
+Traceback (most recent call last):
+  File "/home/anbo/anbo_main/get_pico_data.py", line 20, in run
+    line = self.ser.readline().decode('utf-8', errors='replace').strip()
+           ^^^^^^^^^^^^^^^^^^^
+  File "/home/anbo/env/lib/python3.11/site-packages/serial/serialposix.py", line 575, in read
+    buf = os.read(self.fd, size - len(read))
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: 'NoneType' object cannot be interpreted as an integer
+Traceback (most recent call last):
+  File "/home/anbo/anbo_main/get_pico_data.py", line 20, in run
+    line = self.ser.readline().decode('utf-8', errors='replace').strip()
+           ^^^^^^^^^^^^^^^^^^^
+  File "/home/anbo/env/lib/python3.11/site-packages/serial/serialposix.py", line 575, in read
+    buf = os.read(self.fd, size - len(read))
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: 'NoneType' object cannot be interpreted as an integer
+Traceback (most recent call last):
+  File "/home/anbo/anbo_main/get_pico_data.py", line 20, in run
+    line = self.ser.readline().decode('utf-8', errors='replace').strip()
+           ^^^^^^^^^^^^^^^^^^^
+  File "/home/anbo/env/lib/python3.11/site-packages/serial/serialposix.py", line 575, in read
+    buf = os.read(self.fd, size - len(read))
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: 'NoneType' object cannot be interpreted as an integer
+Traceback (most recent call last):
+  File "/home/anbo/anbo_main/get_pico_data.py", line 20, in run
+    line = self.ser.readline().decode('utf-8', errors='replace').strip()
+           ^^^^^^^^^^^^^^^^^^^
+  File "/home/anbo/env/lib/python3.11/site-packages/serial/serialposix.py", line 575, in read
+    buf = os.read(self.fd, size - len(read))
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: 'NoneType' object cannot be interpreted as an integer
+Traceback (most recent call last):
+  File "/home/anbo/anbo_main/get_pico_data.py", line 20, in run
+    line = self.ser.readline().decode('utf-8', errors='replace').strip()
+           ^^^^^^^^^^^^^^^^^^^
+  File "/home/anbo/env/lib/python3.11/site-packages/serial/serialposix.py", line 575, in read
+    buf = os.read(self.fd, size - len(read))
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: 'NoneType' object cannot be interpreted as an integer
+Traceback (most recent call last):
+  File "/home/anbo/anbo_main/get_pico_data.py", line 20, in run
+    line = self.ser.readline().decode('utf-8', errors='replace').strip()
+           ^^^^^^^^^^^^^^^^^^^
+  File "/home/anbo/env/lib/python3.11/site-packages/serial/serialposix.py", line 575, in read
+    buf = os.read(self.fd, size - len(read))
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: 'NoneType' object cannot be interpreted as an integer
+Traceback (most recent call last):
+  File "/home/anbo/anbo_main/get_pico_data.py", line 20, in run
+    line = self.ser.readline().decode('utf-8', errors='replace').strip()
+           ^^^^^^^^^^^^^^^^^^^
+  File "/home/anbo/env/lib/python3.11/site-packages/serial/serialposix.py", line 575, in read
+    buf = os.read(self.fd, size - len(read))
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: 'NoneType' object cannot be interpreted as an integer
+Traceback (most recent call last):
+  File "/home/anbo/anbo_main/get_pico_data.py", line 20, in run
+    line = self.ser.readline().decode('utf-8', errors='replace').strip()
+           ^^^^^^^^^^^^^^^^^^^
+  File "/home/anbo/env/lib/python3.11/site-packages/serial/serialposix.py", line 575, in read
+    buf = os.read(self.fd, size - len(read))
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: 'NoneType' object cannot be interpreted as an integer
+Traceback (most recent call last):
+  File "/home/anbo/anbo_main/get_pico_data.py", line 20, in run
+    line = self.ser.readline().decode('utf-8', errors='replace').strip()
+           ^^^^^^^^^^^^^^^^^^^
+  File "/home/anbo/env/lib/python3.11/site-packages/serial/serialposix.py", line 575, in read
+    buf = os.read(self.fd, size - len(read))
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: 'NoneType' object cannot be interpreted as an integer
+Traceback (most recent call last):
+  File "/home/anbo/anbo_main/get_pico_data.py", line 20, in run
+    line = self.ser.readline().decode('utf-8', errors='replace').strip()
+           ^^^^^^^^^^^^^^^^^^^
+  File "/home/anbo/env/lib/python3.11/site-packages/serial/serialposix.py", line 575, in read
+    buf = os.read(self.fd, size - len(read))
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: 'NoneType' object cannot be interpreted as an integer
+Traceback (most recent call last):
+  File "/home/anbo/anbo_main/get_pico_data.py", line 20, in run
+    line = self.ser.readline().decode('utf-8', errors='replace').strip()
+           ^^^^^^^^^^^^^^^^^^^
+  File "/home/anbo/env/lib/python3.11/site-packages/serial/serialposix.py", line 575, in read
+    buf = os.read(self.fd, size - len(read))
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: 'NoneType' object cannot be interpreted as an integer
+Traceback (most recent call last):
+  File "/home/anbo/anbo_main/get_pico_data.py", line 20, in run
+    line = self.ser.readline().decode('utf-8', errors='replace').strip()
+           ^^^^^^^^^^^^^^^^^^^
+  File "/home/anbo/env/lib/python3.11/site-packages/serial/serialposix.py", line 575, in read
+    buf = os.read(self.fd, size - len(read))
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: 'NoneType' object cannot be interpreted as an integer
+Traceback (most recent call last):
+  File "/home/anbo/anbo_main/get_pico_data.py", line 20, in run
+    line = self.ser.readline().decode('utf-8', errors='replace').strip()
+           ^^^^^^^^^^^^^^^^^^^
+  File "/home/anbo/env/lib/python3.11/site-packages/serial/serialposix.py", line 575, in read
+    buf = os.read(self.fd, size - len(read))
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: 'NoneType' object cannot be interpreted as an integer
+Traceback (most recent call last):
+  File "/home/anbo/anbo_main/get_pico_data.py", line 20, in run
+    line = self.ser.readline().decode('utf-8', errors='replace').strip()
+           ^^^^^^^^^^^^^^^^^^^
+  File "/home/anbo/env/lib/python3.11/site-packages/serial/serialposix.py", line 575, in read
+    buf = os.read(self.fd, size - len(read))
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: 'NoneType' object cannot be interpreted as an integer
+Traceback (most recent call last):
+  File "/home/anbo/anbo_main/get_pico_data.py", line 20, in run
+    line = self.ser.readline().decode('utf-8', errors='replace').strip()
+           ^^^^^^^^^^^^^^^^^^^
+  File "/home/anbo/env/lib/python3.11/site-packages/serial/serialposix.py", line 575, in read
+    buf = os.read(self.fd, size - len(read))
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: 'NoneType' object cannot be interpreted as an integer
+Traceback (most recent call last):
+  File "/home/anbo/anbo_main/get_pico_data.py", line 20, in run
+    line = self.ser.readline().decode('utf-8', errors='replace').strip()
+           ^^^^^^^^^^^^^^^^^^^
+  File "/home/anbo/env/lib/python3.11/site-packages/serial/serialposix.py", line 575, in read
+    buf = os.read(self.fd, size - len(read))
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: 'NoneType' object cannot be interpreted as an integer
+Traceback (most recent call last):
+  File "/home/anbo/anbo_main/get_pico_data.py", line 20, in run
+    line = self.ser.readline().decode('utf-8', errors='replace').strip()
+           ^^^^^^^^^^^^^^^^^^^
+  File "/home/anbo/env/lib/python3.11/site-packages/serial/serialposix.py", line 575, in read
+    buf = os.read(self.fd, size - len(read))
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: 'NoneType' object cannot be interpreted as an integer
+Traceback (most recent call last):
+  File "/home/anbo/anbo_main/get_pico_data.py", line 20, in run
+    line = self.ser.readline().decode('utf-8', errors='replace').strip()
+           ^^^^^^^^^^^^^^^^^^^
+  File "/home/anbo/env/lib/python3.11/site-packages/serial/serialposix.py", line 575, in read
+    buf = os.read(self.fd, size - len(read))
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: 'NoneType' object cannot be interpreted as an integer
+Traceback (most recent call last):
+  File "/home/anbo/anbo_main/main.py", line 206, in <module>
+    if dist <= cfg.DIST_TRIGGER:
+       ^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: '<=' not supported between instances of 'NoneType' and 'int'
+Traceback (most recent call last):
+  File "/home/anbo/anbo_main/get_pico_data.py", line 20, in run
+    line = self.ser.readline().decode('utf-8', errors='replace').strip()
+           ^^^^^^^^^^^^^^^^^^^
+  File "/home/anbo/env/lib/python3.11/site-packages/serial/serialposix.py", line 575, in read
+    buf = os.read(self.fd, size - len(read))
+          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+TypeError: 'NoneType' object cannot be interpreted as an integer
+Traceback (most recent call last):
+  File "/home/anbo/anbo_main/main.py", line 348, in <module>
+    print(mag_start)
+  File "/home/anbo/anbo_main/main.py", line 45, in set_oil_servo_angle
+    # Convert angle to pulsewidth: 0° = 500µs, 180° = 2500µs
+    ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/home/anbo/env/lib/python3.11/site-packages/pigpio.py", line 1678, in set_servo_pulsewidth
+    return _u2i(_pigpio_command(
+                ^^^^^^^^^^^^^^^^
+  File "/home/anbo/env/lib/python3.11/site-packages/pigpio.py", line 1026, in _pigpio_command
+    dummy, res = struct.unpack('12sI', sl.s.recv(_SOCK_CMD_LEN))
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+struct.error: unpack requires a buffer of 16 bytes
+Traceback (most recent call last):
+  File "/home/anbo/anbo_main/main.py", line 248, in <module>
+    set_oil_servo_angle(0)
+  File "/home/anbo/anbo_main/main.py", line 47, in set_oil_servo_angle
+    pi.set_servo_pulsewidth(cfg.OIL_PIN, pulsewidth)
+  File "/home/anbo/env/lib/python3.11/site-packages/pigpio.py", line 1678, in set_servo_pulsewidth
+    return _u2i(_pigpio_command(
+                ^^^^^^^^^^^^^^^^
+  File "/home/anbo/env/lib/python3.11/site-packages/pigpio.py", line 1026, in _pigpio_command
+    dummy, res = struct.unpack('12sI', sl.s.recv(_SOCK_CMD_LEN))
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+struct.error: unpack requires a buffer of 16 bytes

@@ -21,7 +21,7 @@ END_SOUND = "/home/anbo/anbo_main/anbo_audio/end.wav"
 #communication with pico
 SCRIPT_RESTING_TIME = 20
 CRANK_TIME = 2
-DIST_TRIGGER = 30
+DIST_TRIGGER = 25
 VALVE_THRESHOLD = 0.3
 THROTTLE_MIN = 0.5
 THROTTLE_MAX = 0.92

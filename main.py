@@ -12,6 +12,8 @@ import pigpio
 import threading
 from distSensor import distSensor
 from derivative_adc_monitor import ADS1115Monitor
+import os
+
 
 class Inputs(Enum):
     MAG = cfg.MAG_PIN
@@ -203,6 +205,11 @@ try:
             prop_enable = False
             dist = dSensor.measure_distance()
             #print(dist) 
+            if dist is None:
+                print("[ERROR] Distance sensor returned None. Restarting script...")
+                time.sleep(1)
+                os.execv(sys.executable, ['python3'] + sys.argv)  # Restart script
+
             if dist <= cfg.DIST_TRIGGER:
                 current_state = gameStates.GAME_BEGIN
                 print_state() 
