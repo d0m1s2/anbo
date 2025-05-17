@@ -16,3 +16,23 @@ password: anbo lektuvelis
 
 Pagrindinis service kuris runnina visa anbo yra /etc/systemd/system/anbo.service
 
+
+
+
+
+
+VEIKIMO PRINCIPAS:
+-----------------------------------------------------
+
+yra 3 bendrai (micro)processoriai:
+Raspberry Pi 4 - atsakingas uz garsa ir uz visa gameloopa
+Pico - atsakingas uz ADC inputus (voztuvas ir gazas) ir taip pat atsakingas uz arduino ijungima
+Arduino Uno - atsakingas uz propelerio veikima
+
+Schema kaip viskas veikia ir kokie pinai ir protokolai jungimo yra KiCad failuose.
+-----------------------------------------------------
+also kode viskas suvardinta angliskai nes ne debilas esu
+
+
+
+
