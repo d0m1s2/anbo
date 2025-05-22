@@ -38,3 +38,10 @@ distSensorTest.py - jei neveikia ultrasoundas po kojom kur yra //todo
 derivative_adc_monitor.py - tikrint pumpavimo funkcija (servo nejudina)
 testProp.py - propeleri pajungia (kartu ir jo skaitliukus)
 
+
+
+
+
+
+
+

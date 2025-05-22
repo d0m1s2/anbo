@@ -33,3 +33,15 @@ Schema kaip viskas veikia ir kokie pinai ir protokolai jungimo yra KiCad failuos
 -----------------------------------------------------
 also kode viskas suvardinta angliskai nes debilas esu
 
+
+
+
+
+
+
+---------------------
+pagrindinis scriptas yra ~/anbo/anbo_main/code/main.py
+jis atsakingas uz visa gameloopo logika, dar stengiaus +- kad errorus rodytu
+turi kelis helperius, kurie deklaruoti virsuj su importais
+
+
