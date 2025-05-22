@@ -2,3 +2,7 @@
 -uzdet capacitor ir resistor kad nesudegtu pinas nuo helper button
 -vapse ismest arduina lauk, idet shifteri
 -implement prop logic ant pico
+-iskeist laida usbc i muziejaus arba tiesiog ne savo
+
+maybe:
+viska ant vieno proto boardo?
