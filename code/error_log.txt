@@ -6420,3 +6420,13 @@ Traceback (most recent call last):
     dummy, res = struct.unpack('12sI', sl.s.recv(_SOCK_CMD_LEN))
                  ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 struct.error: unpack requires a buffer of 16 bytes
+Traceback (most recent call last):
+  File "/home/anbo/anbo_main/code/main.py", line 222, in <module>
+    sounds['game_begin'].play()
+    ~~~~~~^^^^^^^^^^^^^^
+KeyError: 'game_begin'
+Traceback (most recent call last):
+  File "/home/anbo/anbo_main/code/main.py", line 222, in <module>
+    sounds['game_begin'].play()
+    ~~~~~~^^^^^^^^^^^^^^
+KeyError: 'game_begin'

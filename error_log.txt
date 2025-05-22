@@ -1,0 +1,10 @@
+Traceback (most recent call last):
+  File "/home/anbo/anbo_main/main.py", line 204, in <module>
+  File "/home/anbo/anbo_main/main.py", line 47, in set_oil_servo_angle
+  File "/home/anbo/env/lib/python3.11/site-packages/pigpio.py", line 1678, in set_servo_pulsewidth
+    return _u2i(_pigpio_command(
+                ^^^^^^^^^^^^^^^^
+  File "/home/anbo/env/lib/python3.11/site-packages/pigpio.py", line 1026, in _pigpio_command
+    dummy, res = struct.unpack('12sI', sl.s.recv(_SOCK_CMD_LEN))
+                 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+struct.error: unpack requires a buffer of 16 bytes

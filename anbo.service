@@ -1,0 +1,25 @@
+[Unit]
+Description=Run main.py with pigpiod
+After=network.target
+Wants=network.target
+
+[Service]
+Type=simple
+# Ensure pigpiod is started before main.py
+ExecStartPre=/bin/sleep 1
+# Activate Python virtual environment (if you have one), and run the script
+ExecStart=/bin/bash -c 'cd /home/anbo && source env/bin/activate && cd anbo_main/code && sudo pigpiod && python main.py'
+
+# Optional: set working directory
+WorkingDirectory=/home/anbo/anbo_main/code
+
+# Auto-restart on crash
+Restart=always
+RestartSec=5
+
+# Environment variables (optional)
+Environment="PYTHONUNBUFFERED=1"
+# If using a .env file, consider sourcing it in a wrapper script
+
+[Install]
+WantedBy=multi-user.target

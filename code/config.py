@@ -8,15 +8,15 @@ DSENSOR_TRIG_PIN = 17
 DSENSOR_ECHO_PIN = 27
 HELP_BUTTON_PIN = 25
 
-GAME_BEGIN_SOUND = "/home/anbo/anbo_main/anbo_audio/gamebegin.wav"
-CRANK_SOUND = "/home/anbo/anbo_main/anbo_audio/engine_crank.mp3"
-RUNNING_SOUND = "/home/anbo/anbo_main/anbo_audio/engine_start.mp3"
-STARTER_SOUND = "/home/anbo/anbo_main/anbo_audio/starter.wav"
-VALVE_SOUND = "/home/anbo/anbo_main/anbo_audio/valve.mp3"
-THROTTLE_SOUND = "/home/anbo/anbo_main/anbo_audio/throttle.mp3"
-PUMP_SOUND = "/home/anbo/anbo_main/anbo_audio/pump.mp3"
-MAGNETO_SOUND = "/home/anbo/anbo_main/anbo_audio/magneto.mp3"
-END_SOUND = "/home/anbo/anbo_main/anbo_audio/end.wav"
+GAME_BEGIN_SOUND = "/home/anbo/anbo_main/code/anbo_audio/gamebegin.wav"
+CRANK_SOUND = "/home/anbo/anbo_main/code/anbo_audio/engine_crank.mp3"
+RUNNING_SOUND = "/home/anbo/anbo_main/code/anbo_audio/engine_start.mp3"
+STARTER_SOUND = "/home/anbo/anbo_main/code/anbo_audio/starter.wav"
+VALVE_SOUND = "/home/anbo/anbo_main/code/anbo_audio/valve.mp3"
+THROTTLE_SOUND = "/home/anbo/anbo_main/code/anbo_audio/throttle.mp3"
+PUMP_SOUND = "/home/anbo/anbo_main/code/anbo_audio/pump.mp3"
+MAGNETO_SOUND = "/home/anbo/anbo_main/code/anbo_audio/magneto.mp3"
+END_SOUND = "/home/anbo/anbo_main/code/anbo_audio/end.wav"
 
 #communication with pico
 SCRIPT_RESTING_TIME = 20
