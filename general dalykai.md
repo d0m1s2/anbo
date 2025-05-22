@@ -31,8 +31,5 @@ Arduino Uno - atsakingas uz propelerio veikima
 
 Schema kaip viskas veikia ir kokie pinai ir protokolai jungimo yra KiCad failuose.
 -----------------------------------------------------
-also kode viskas suvardinta angliskai nes ne debilas esu
-
-
-
+also kode viskas suvardinta angliskai nes debilas esu
 
