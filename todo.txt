@@ -1,0 +1,4 @@
+-pakeist power supply i normalu 24v 
+-uzdet capacitor ir resistor kad nesudegtu pinas nuo helper button
+-vapse ismest arduina lauk, idet shifteri
+-implement prop logic ant pico
